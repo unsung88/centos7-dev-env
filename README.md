@@ -31,7 +31,7 @@ master currently includes: (Latest = current stable or current in repo)
 * gdb - Latest
 * Perl 5.16.3
 * Python 2.7.15
-* Python 3.7.0
+* Python Latest (3.6.5)
 * npm v5.6.0
 * node.js 8.11.3 (LTS)
 * Open VM Tools - VMware Fusion-only
