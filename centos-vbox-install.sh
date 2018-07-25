@@ -65,30 +65,30 @@ newgrp docker
 sudo yum install -y rpm-build readline-devel openssl-devel pam-devel perl-CPAN mariadb-devel zsh
 
 # python2
-sudo wget -q http://python.org/ftp/python/${PYTHON2_VERSION}/Python-${PYTHON2_VERSION}.tar.xz - download
+wget -q http://python.org/ftp/python/${PYTHON2_VERSION}/Python-${PYTHON2_VERSION}.tar.xz - download
 tar xf Python-${PYTHON2_VERSION}.tar.xz
 cd Python-${PYTHON2_VERSION}
-sudo ./configure --enable-optimizations #--prefix=/opt/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
-sudo make && sudo make altinstall
+./configure --enable-optimizations #--prefix=/opt/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make && sudo make altinstall
 cd ~
 sudo /usr/local/bin/python2.7 -m ensurepip
 
 #python3
-sudo wget -q https://www.python.org/ftp/python/${PYTHON3_VERSION}/Python-${PYTHON3_VERSION}.tar.xz - download
+wget -q https://www.python.org/ftp/python/${PYTHON3_VERSION}/Python-${PYTHON3_VERSION}.tar.xz
 tar xf Python-${PYTHON3_VERSION}.tar.xz
 cd Python-${PYTHON3_VERSION}
-sudo ./configure --enable-optimizations #--prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
-sudo make && sudo make altinstall
+./configure --enable-optimizations #--prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make && sudo make altinstall
 cd ~
 sudo /usr/local/bin/python3.7 -m ensurepip
 
 #update git
 sudo yum erase -y git
-sudo wget -q  https://mirrors.edge.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.xz - download
+wget -q  https://mirrors.edge.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.xz
 tar xf git-${GIT_VERSION}.tar.xz
 cd git-${GIT_VERSION}
-sudo ./configure
-sudo make && sudo make install
+./configure
+make && sudo make install
 cd ~
 
 # pip modules
@@ -114,7 +114,7 @@ sudo $pip2 install --upgrade azure
 #instal X widgets for emacs
 sudo yum install -y libXaw gtk2-devel libXpm-devel libjpeg-devel libgif-devel libungif-devel libtiff-devel
 #install emacs 
-sudo wget -q http://ftp.gnu.org/gnu/emacs/emacs-${EMACS_VERSION}.tar.xz - download
+wget -q http://ftp.gnu.org/gnu/emacs/emacs-${EMACS_VERSION}.tar.xz - download
 tar xf emacs-${EMACS_VERSION}.tar.xz
 cd emacs-${EMACS_VERSION}
 ./autogen.sh
@@ -128,8 +128,8 @@ sudo usermod -aG libvirt vagrant
 newgrp libvirt
 
 #installl minishift
-sudo wget -q https://github.com/minishift/minishift/releases/download/v${MINISHIFT_VERSION}/minishift-${MINISHIFT_VERSION}-linux-amd64.tgz \
-&& sudo tar zxf minishift-${MINISHIFT_VERSION}-linux-amd64.tgz \
+wget -q https://github.com/minishift/minishift/releases/download/v${MINISHIFT_VERSION}/minishift-${MINISHIFT_VERSION}-linux-amd64.tgz \
+&& tar zxf minishift-${MINISHIFT_VERSION}-linux-amd64.tgz \
 && sudo mv minishift-${MINISHIFT_VERSION}-linux-amd64/minishift /usr/local/bin/. \
 && sudo chmod +x /usr/local/bin/minishift \
 && rm -Rf ./minishift-${MINISHIFT_VERSION}-linux-amd64 \
@@ -148,14 +148,14 @@ sudo systemctl start postgresql-9.6
 sudo systemctl stop postgresql-9.6
 
 #postman
-sudo wget -q https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz \
-&& sudo tar -xzf postman.tar.gz -C /opt \
+wget -q https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz \
+&& tar -xzf postman.tar.gz -C /opt \
 && rm -f ./postman.tar.gz \
 && sudo ln -s /opt/Postman/Postman /usr/bin/postman \
 && sudo ln -s /opt/Postman/app/resources/app/assets/icon.png /usr/share/icons/postman.png
 
 #install node.js
-sudo wget -qO- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | bash \
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | bash \
 && export NVM_DIR="$HOME/.nvm" \
 && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
@@ -215,7 +215,7 @@ sudo VBoxClient --seamless
 sudo echo "allowed_users=anybody" > /etc/X11/Xwrapper.config
 
 #pgadmin4
-sudo wget -q  https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${PGADMIN4_VERSION}/pip/pgadmin4-${PGADMIN4_VERSION}-py2.py3-none-any.whl - download
+wget q  https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${PGADMIN4_VERSION}/pip/pgadmin4-${PGADMIN4_VERSION}-py2.py3-none-any.whl
 sudo $pip2 install ./pgadmin4-${PGADMIN4_VERSION}-py2.py3-none-any.whl
 sudo $pip3 install ./pgadmin4-${PGADMIN4_VERSION}-py2.py3-none-any.whl
 sudo cp /usr/local/lib/python${py3}/site-packages/pgadmin4/pgadmin/static/favicon.ico /usr/share/icons/pgadmin4.icon
