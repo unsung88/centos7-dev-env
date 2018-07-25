@@ -6,7 +6,7 @@ HOME="/home/vagrant"
 TERRAFORM_VERSION="0.11.7"
 PACKER_VERSION="1.2.5"
 PYTHON2_VERSION="2.7.15"
-PYTHON3_VERSION="3.7.0"
+PYTHON3_VERSION="3.6.5"
 GIT_VERSION="2.18.0"
 EMACS_VERSION="26.1"
 MINISHIFT_VERSION="1.21.0"
@@ -17,7 +17,7 @@ PGADMIN4_VERSION="3.1"
 
 #pip locations
 pip2=/usr/local/bin/pip2.7
-pip3=/usr/local/bin/pip3.7
+pip3=/usr/bin/pip3.6
 
 #python short version numbers
 py2=${PYTHON2_VERSION%.*}
@@ -74,13 +74,11 @@ cd ~
 sudo /usr/local/bin/python2.7 -m ensurepip
 
 #python3
-wget -q https://www.python.org/ftp/python/${PYTHON3_VERSION}/Python-${PYTHON3_VERSION}.tar.xz
-tar xf Python-${PYTHON3_VERSION}.tar.xz
-cd Python-${PYTHON3_VERSION}
-./configure --enable-optimizations #--prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
-make && sudo make altinstall
-cd ~
-sudo /usr/local/bin/python3.7 -m ensurepip
+#remove old python bins
+sudo rm /usr/local/bin/python3*
+sudo rm /usr/local/bin/pip3*
+sudo yum install -y https://centos7.iuscommunity.org/ius-release.rpm
+sudo yum install -y python36u python36u-pip python36u-devel
 
 #update git
 sudo yum erase -y git
@@ -114,7 +112,7 @@ sudo $pip2 install --upgrade azure
 #instal X widgets for emacs
 sudo yum install -y libXaw gtk2-devel libXpm-devel libjpeg-devel libgif-devel libungif-devel libtiff-devel
 #install emacs 
-sudo wget -q http://ftp.gnu.org/gnu/emacs/emacs-${EMACS_VERSION}.tar.xz - download
+wget -q http://ftp.gnu.org/gnu/emacs/emacs-${EMACS_VERSION}.tar.xz
 tar xf emacs-${EMACS_VERSION}.tar.xz
 cd emacs-${EMACS_VERSION}
 ./autogen.sh
@@ -210,7 +208,7 @@ sudo yum install -y open-vm-tools
 wget -q  https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${PGADMIN4_VERSION}/pip/pgadmin4-${PGADMIN4_VERSION}-py2.py3-none-any.whl
 sudo $pip2 install ./pgadmin4-${PGADMIN4_VERSION}-py2.py3-none-any.whl
 sudo $pip3 install ./pgadmin4-${PGADMIN4_VERSION}-py2.py3-none-any.whl
-sudo cp /usr/local/lib/python${py3}/site-packages/pgadmin4/pgadmin/static/favicon.ico /usr/share/icons/pgadmin4.icon
+sudo cp /usr/local/lib/python${py2}/site-packages/pgadmin4/pgadmin/static/favicon.ico /usr/share/icons/pgadmin4.icon
 sudo mkdir /var/lib/pgadmin
 sudo chmod -R 777 /var/lib/pgadmin
 sudo mkdir /var/log/pgadmin
