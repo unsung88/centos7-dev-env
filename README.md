@@ -62,4 +62,5 @@ To always boot into the GUI
 
 ## Known Issues
 * Sometimes VMware Fusion does not launch the new VM - ctrl+C the Vagrant up command and try it again
+* copy/Paste is not working from Host to Fusion console
 
