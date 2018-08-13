@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Postman
+Comment=An API Test Suite.
+GenericName=API Test Suite
+Exec=/usr/bin/postman
+Icon=/usr/share/icons/postman.png
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;Development;
+MimeType=text/plain;
+StartupWMClass=Postman

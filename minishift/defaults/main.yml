@@ -1,0 +1,4 @@
+---
+# defaults file for minishift
+minishift_version: "1.21.0"
+docker_kvm_version: "0.7.0"

@@ -1,0 +1,81 @@
+---
+# tasks file for pgadmin4
+- name: Get python2 variables
+  include_vars: "python2/defaults/main.yml"
+
+- name: Check to see if pgadmin4 exists
+  stat: path="{{ HOME }}/pgadmin4-{{ pgadmin4_version }}-py2.py3-none-any.whl"
+  register: pgadmin_exists
+
+- name: Download pgadmin4 wheel
+  get_url: url=https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v{{ pgadmin4_version }}/pip/pgadmin4-{{ pgadmin4_version }}-py2.py3-none-any.whl dest='{{ HOME }}' mode=0775
+  when: not pgadmin_exists.stat.exists
+
+- name: Install pgadmin4
+  become: true
+  pip: executable='{{ py2_pip }}' name='{{ HOME }}/pgadmin4-{{ pgadmin4_version }}-py2.py3-none-any.whl' state=present
+  when: pgadmin_exists.stat.exists
+
+- name: Remove pgadmin4 wheel file
+  become: true
+  file:
+    path: "{{ HOME }}/pgadmin4-{{ pgadmin4_version }}-py2.py3-none-any.whl"
+    state: absent
+  when: pgadmin_exists.stat.exists
+
+- name: Check to see if pgadmin4 icon exists
+  become: true
+  stat: path="/usr/local/lib/python{{ py2_short }}/site-packages/pgadmin4/pgadmin/static/favicon.ico"
+  register: pgadmin_icon_exists
+
+- name: Check to see if pgadmin4 desktop icon exists
+  become: true
+  stat: path="/usr/share/icons/pgadmin4.icon"
+  register: pgadmin_desktop_icon_exists
+
+- name: Set Icon for Desktop Launcher 
+  become: true
+  command: 'cp /usr/local/lib/python{{ py2_short }}/site-packages/pgadmin4/pgadmin/static/favicon.ico /usr/share/icons/pgadmin4.icon'
+  args:
+    creates: /usr/share/icons/pgadmin4.icon
+  when: pgadmin_icon_exists.stat.exists and not pgadmin_desktop_icon_exists.stat.exists
+
+- name: Check to see if /var/lib/pgadmin exists
+  become: true
+  stat: path="/var/lib/pgadmin"
+  register: pgadmin_lib_exists
+
+- name: Create lib directory
+  become: true
+  file: path='/var/lib/pgadmin' state=directory mode=0777
+  when: not pgadmin_lib_exists.stat.exists
+
+- name: Check to see if /var/log/pgadmin exists
+  become: true
+  stat: path="/var/log/pgadmin"
+  register: pgadmin_log_exists
+
+- name: Create log directory
+  become: true
+  file: path='/var/log/pgadmin' state=directory mode=0777
+  when: not pgadmin_log_exists.stat.exists
+
+- name: Check to see if pgadmin start script exists
+  become: true
+  stat: path="/usr/local/bin/pgadmin4.sh"
+  register: pgadmin_start_exists
+
+- name: Copy start script
+  become: true
+  copy: src=pgadmin4.sh dest='/usr/local/bin/' mode=0775
+  when: not pgadmin_log_exists.stat.exists  
+
+- name: Check to see if pgadmin launcher exists
+  become: true
+  stat: path="/usr/share/applications/pgadmin4.desktop"
+  register: pgadmin_launcher_exists
+
+- name: Copy desktop launcher
+  become: true
+  copy: src='pgadmin4.desktop' dest='/usr/share/applications/' mode=0775
+  when: not pgadmin_launcher_exists.stat.exists 

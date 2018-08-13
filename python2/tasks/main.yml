@@ -1,0 +1,80 @@
+---
+# tasks file for python2
+- name: Check to see if python is already altinstalled
+  become: true
+  stat: path="/usr/local/bin/python{{ py2_short }}"
+  register: exists_result
+
+- name: Install required packages
+  become: true
+  yum: name={{ item }} state=latest
+  with_items: '{{ py2_packages }}'
+  when: not exists_result.stat.exists
+
+- name: Download and extract python2
+  unarchive: src='http://python.org/ftp/python/{{ py2_ver }}/Python-{{ py2_ver }}.tar.xz' dest='{{ HOME }}' remote_src=yes
+  when: install_python2 and not exists_result.stat.exists
+
+- name: Configure
+  command: ./configure --enable-optimizations
+  args:
+    chdir: '{{ py2_src_dir }}'
+    creates: '{{ py2_src_dir }}/Makefile'
+  when: install_python2 and not exists_result.stat.exists
+
+- name: Make python2
+  command: make
+  args:
+    chdir: '{{ py2_src_dir }}'
+    creates: '{{ py2_src_dir }}/src/python2.7'
+  when: install_python2 and not exists_result.stat.exists
+
+- name: Altinstall python2
+  become: true
+  command: make altinstall
+  args:
+    chdir: '{{ py2_src_dir }}'
+    creates: '{{ py2_bin_dir }}python2.7'
+  when: install_python2 and not exists_result.stat.exists
+
+- name: Remove source
+  become: true
+  file:
+    path: '{{ py2_src_dir }}'
+    state: absent
+  when: install_python2 and not exists_result.stat.exists
+
+- name: Ensure pip
+  become: true
+  command: "{{ py2_bin_dir }}python2.7 -m ensurepip"
+  args:
+    chdir: '{{ py2_bin_dir }}'
+    creates: '{{ py2_bin_dir }}pip2.7'
+  when: install_python2 and not exists_result.stat.exists
+
+- name: Update pip module
+  become: true
+  pip: executable='{{ py2_pip }}' name='pip' state=latest
+  when: install_python2
+
+- name: Install standard pip modules
+  become: true
+  pip: executable='{{ py2_pip }}' name='{{ item }}' state=latest
+  with_items: '{{ py2_generic }}'
+  when: install_python2 and not exists_result.stat.exists
+
+- name: Install AWS pip modules
+  become: true
+  pip: executable='{{ py2_pip }}' name='{{ item }}' state=latest
+  with_items: '{{ py2_aws_modules }}'
+  when: py2_aws
+
+- name: Install Google-Cloud pip module
+  become: true
+  pip: executable='{{ py2_pip }}' name=google-cloud state=latest
+  when: py2_gcp
+
+- name: Install Azure pip module
+  become: true
+  pip: executable='{{ py2_pip }}' name=azure state=latest
+  when: py2_azure

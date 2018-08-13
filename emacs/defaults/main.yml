@@ -1,0 +1,14 @@
+---
+# defaults file for emacs
+emacs_ver : '26.1'
+emacs_src_dir: '{{ HOME }}/emacs-{{ emacs_ver }}'
+image_packages:
+  - libXaw 
+  - gtk2-devel 
+  - libXpm-devel 
+  - libjpeg-devel
+  - giflib-devel 
+  - libungif-devel 
+  - libtiff-devel
+  - gnutls-devel
+  - libtermcap-devel

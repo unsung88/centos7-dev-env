@@ -1,0 +1,12 @@
+---
+# tasks file for vbox_tools
+
+  # - name: Install VirtualBox Guest Tools
+  #   become: true
+  #   yum: name={{ item }} state=latest
+  #   with_items: '{{ vbox_packages }}'
+
+  - name: Set VirtualBox Client options
+    become: true
+    command: VBoxClient --{{ item }}
+    with_items: '{{ vboxclient_options }}'

@@ -1,0 +1,41 @@
+---
+# tasks file for dev-tools
+
+  - name: Install Development Tools Group
+    become: true
+    yum: name="@Development tools" state=latest
+
+  - name: Install additional dev tools
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ dev_tools }}'
+
+  - name: Install DB Development Packages
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ db_dev_packages }}'
+
+  - name: Install Python Development Packages
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ py_dev_packages }}'
+
+  - name: Install Compression Development Packages
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ compression_dev_packages }}'
+
+  - name: Install Graphics Development Packages
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ graphics_dev_packages }}'
+
+  - name: Install Security Development Packages
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ security_dev_packages }}'
+
+  - name: Install Misc Development Packages
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ misc_dev_packages }}'

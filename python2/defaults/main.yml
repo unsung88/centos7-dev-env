@@ -1,0 +1,31 @@
+---
+# defaults file for python2
+py2_short: '2.7'
+py2_ver : '{{ py2_short }}.15'
+py2_src_dir: '{{ HOME }}/Python-{{ py2_ver }}'
+py2_bin_dir: /usr/local/bin/
+py2_pip: '{{ py2_bin_dir }}pip{{ py2_short }}'
+py2_packages:
+  - readline-devel
+  - openssl-devel
+py2_generic:
+  - pip
+  - virtualenv 
+  - requests 
+  - falcon 
+  - flask 
+  - cryptography 
+  - gevent 
+  - gunicorn 
+  - httpie 
+  - flask-sqlalchemy 
+  - falcon-auth 
+  - PyJWT 
+  - PyJKS 
+  - cassandra-driver 
+  - psycopg2-binary 
+  - flake8 
+  - pycrypto
+py2_aws_modules:
+  - awscli
+  - awsebcli

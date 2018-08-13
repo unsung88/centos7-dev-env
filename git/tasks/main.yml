@@ -1,0 +1,50 @@
+---
+# tasks file for git
+  - name: Check for existing git
+    become: true 
+    stat: path={{ git_file }}
+    register: file_result
+
+  - name: Check existing git version
+    become: true
+    shell: '{{ git_file }} --version'
+    register: git_version_result
+    when: file_result.stat.exists
+
+  - name: Uninstall existing git
+    become: true
+    yum: name=git state=absent
+    when: not file_result.stat.exists or git_version_result.stdout != "git version {{ git_version }}"
+
+  - name: Download and extract git
+    unarchive: src='https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{ git_version }}.tar.xz' dest='{{ HOME }}' remote_src=yes
+    when: not file_result.stat.exists or git_version_result.stdout != "git version {{ git_version }}"
+
+  - name: Configure
+    command: ./configure
+    args:
+      chdir: '{{ git_src }}'
+      creates: '{{ git_src }}/config.log'
+    when: not file_result.stat.exists or git_version_result.stdout != "git version {{ git_version }}"
+
+  - name: Make git
+    command: make
+    args:
+      chdir: '{{ git_src }}'
+      creates: '{{ git_src }}/src/git'
+    when: not file_result.stat.exists or git_version_result.stdout != "git version {{ git_version }}"
+
+  - name: install git
+    become: true
+    command: make install
+    args:
+      chdir: '{{ git_src }}'
+      creates: /usr/local/bin/git
+    when: not file_result.stat.exists or git_version_result.stdout != "git version {{ git_version }}"
+
+  - name: Remove source
+    become: true
+    file:
+      path: '{{ git_src }}'
+      state: absent
+    when: not file_result.stat.exists or git_version_result.stdout != "git version {{ git_version }}"

@@ -1,0 +1,58 @@
+---
+# tasks file for python3
+  - name: Check to see if python is already altinstalled
+    become: true
+    stat: path="/usr/bin/python{{ py3_ver }}"
+    register: exists_result
+
+  - name: Remove exiting python3 binaries
+    become: true
+    file:
+      path: /usr/local/bin/python3*
+      state: absent 
+    when: install_python3 and not exists_result.stat.exists  
+
+  - name: Remove exiting python3 pip binaries
+    become: true
+    file:
+      path: /usr/local/bin/pip3*
+      state: absent    
+    when: install_python3 and not exists_result.stat.exists
+
+  - name: Install IUS Community repo
+    become: true
+    yum: name="{{ iuscommunity_url }}" state=present
+    when: install_python3 and not exists_result.stat.exists
+
+  - name: Install Python3 and dev packages
+    become: true
+    yum: name={{ item }} state=latest update_cache=yes
+    with_items: '{{ py3_packages }}'
+    when: install_python3 and not exists_result.stat.exists
+
+  - name: Update pip module
+    become: true
+    pip: executable='{{ py3_pip }}' name='pip' state=latest
+    when: install_python3
+
+  - name: Install standard pip modules
+    become: true
+    pip: executable='{{ py3_pip }}' name='{{ item }}' state=latest
+    with_items: '{{ py3_generic }}'
+    when: install_python3 and not exists_result.stat.exists
+
+  - name: Install AWS pip modules
+    become: true
+    pip: executable='{{ py3_pip }}' name='{{ item }}' state=latest
+    with_items: '{{ py3_aws_modules }}'
+    when: py3_aws
+
+  - name: Install Google-Cloud pip module
+    become: true
+    pip: executable='{{ py3_pip }}' name=google-cloud state=latest
+    when: py3_gcp
+
+  - name: Install Azure pip module
+    become: true
+    pip: executable='{{ py3_pip }}' name=azure state=latest
+    when: py3_azure

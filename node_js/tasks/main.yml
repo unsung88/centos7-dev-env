@@ -1,0 +1,25 @@
+---
+# tasks file for node_js
+  - name: Check to see if nvm is already altinstalled
+    stat: path="{{ HOME }}/.nvm/nvm.sh"
+    register: nvm_exists
+
+  - name: Install nvm
+    become: false
+    shell: 'curl https://raw.githubusercontent.com/creationix/nvm/v{{ nvm_version }}/install.sh | /usr/bin/sh'
+    args:
+      creates: "{{ HOME }}/.nvm/nvm.sh"
+    when: not nvm_exists.stat.exists
+
+  - name: Check to see if node.js is already altinstalled
+    stat: path="{{ HOME }}/.nvm/versions/node"
+    register: node_exists
+
+  - name: Install Node.js
+    become: false
+    shell: '. {{ HOME }}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default{{ node_version }}'
+    args:
+      creates: "{{ HOME }}/.nvm/versions/node"
+      chdir: "{{ HOME }}"
+      executable: /bin/bash
+    when: not node_exists.stat.exists

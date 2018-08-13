@@ -1,0 +1,32 @@
+---
+# tasks file for vscode
+
+  - name: Check to see if MS repo file exists
+    become: true
+    stat: path="/etc/yum.repos.d/vscode.repo"
+    register: ms_repo_exists
+
+  - name: Import MS Repo key
+    become: true
+    rpm_key: key="{{ ms_repo_key }}" state=present
+    when: not ms_repo_exists.stat.exists
+
+  - name: Add MS repo
+    become: true
+    copy: src='vscode.repo' dest='/etc/yum.repos.d/' mode=0775
+    when: not ms_repo_exists.stat.exists
+
+  - name: Check to see if VS Code is already installed
+    become: true
+    stat: path="/usr/share/code/code"
+    register: vscode_exists
+
+  - name: Check for updates
+    become: true
+    yum: list=updates update_cache=true
+    when: not vscode_exists.stat.exists
+
+  - name: Install VS Code
+    become: true
+    yum: name=code state=latest update_cache=yes
+    when: not vscode_exists.stat.exists

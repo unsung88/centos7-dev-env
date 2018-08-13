@@ -1,0 +1,30 @@
+---
+# tasks file for oh_my_zsh
+- name: Check to see if zsh exists
+  become: true
+  stat: path="/usr/bin/zsh"
+  register: zsh_exists
+
+- name: Install zsh
+  become: true
+  yum: name=zsh state=latest
+  when: not zsh_exists.stat.exists
+
+- name: Check to see if Oh-My-zsh is already installed
+  become: true
+  stat: path="{{ HOME }}/.zshrc"
+  register: oh_my_zsh_exists
+
+- name: Download Oh-My-zsh
+  get_url: url='https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh' dest='{{ HOME }}' remote_src=yes mode=0775
+  when: not oh_my_zsh_exists.stat.exists
+
+- name: Install Oh-My-zsh
+  shell: 'export PATH=/usr/local/bin/:$PATH && . {{ HOME }}/install.sh'
+  args:
+    creates: "{{ HOME }}/.zshrc"
+    chdir: "{{ HOME }}"
+    executable: /bin/zsh
+  when: not oh_my_zsh_exists.stat.exists
+  ignore_errors: true  
+

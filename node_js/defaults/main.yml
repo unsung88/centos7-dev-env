@@ -1,0 +1,4 @@
+---
+# defaults file for node_js
+  nvm_version: "0.33.11"
+  node_version: "8.11.3"

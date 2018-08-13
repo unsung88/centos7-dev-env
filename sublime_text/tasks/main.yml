@@ -1,0 +1,27 @@
+---
+# tasks file for sublime_text
+
+  - name: Check to see if Sublime Text repo file exists
+    become: true
+    stat: path="/etc/yum.repos.d/sublime-text.repo"
+    register: sublime_repo_exists
+
+  - name: Import Sublime Text repo key
+    become: true
+    rpm_key: key="{{ sublime_repo_key }}" state=present
+    when: not sublime_repo_exists.stat.exists
+
+  - name: Install Sublime Text repo
+    become: true
+    get_url: url="{{ sublime_repo }}" dest="/etc/yum.repos.d/" remote_src=yes mode=0775
+    when: not sublime_repo_exists.stat.exists
+
+  - name: Check to see if Sublime Text is already installed
+    become: true
+    stat: path="/usf/bin/sublime-text"
+    register: sublime_exists
+
+  - name: Install Sublime Text
+    become: true
+    yum: name=sublime-text state=latest update_cache=yes
+    when: not sublime_exists.stat.exists

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=PGAdmin4
+Terminal=false
+Comment=Database Administration Tool.
+GenericName=Database Administration Tool
+Exec=mate-terminal -e "/usr/local/bin/pgadmin4.sh"
+Icon=/usr/share/icons/pgadmin4.icon
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;Development;
+MimeType=text/plain;
+StartupWMClass=PGAdmin4

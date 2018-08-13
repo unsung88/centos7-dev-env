@@ -1,0 +1,50 @@
+---
+# tasks file for emacs
+- name: Check to see if emacs is already installed
+  become: true
+  stat: path=/usr/local/bin/emacs
+  register: exists_result
+
+- name: Install required packages
+  become: true
+  yum: name={{ item }} state=latest
+  with_items: '{{ image_packages }}'
+  when: not exists_result.stat.exists
+  
+- name: Download and extract latest emacs
+  unarchive: src=http://ftp.gnu.org/gnu/emacs/emacs-{{ emacs_ver }}.tar.xz dest='{{ HOME }}' remote_src=yes
+  when: not exists_result.stat.exists
+
+- name: Autogen
+  shell: "PATH=/usr/local/bin/:$PATH && cd {{ emacs_src_dir }} && ./autogen.sh"
+  when: not exists_result.stat.exists
+
+- name: Configure
+  command: ./configure
+  args:
+    chdir: '{{ emacs_src_dir }}'
+    creates: '{{ emacs_src_dir }}/Makefile'
+  #ignore_errors: true
+  when: not exists_result.stat.exists
+
+- name: Make emacs
+  command: make
+  args:
+    chdir: '{{ emacs_src_dir }}'
+    creates: '{{ emacs_src_dir }}/src/emacs'
+  when: not exists_result.stat.exists
+
+- name: Install emacs
+  become: true
+  command: make install
+  args:
+    chdir: '{{ emacs_src_dir }}'
+    creates: /usr/local/bin/emacs
+  when: not exists_result.stat.exists
+
+- name: Remove source
+  become: true
+  file:
+    path: '{{ emacs_src_dir }}'
+    state: absent
+  when: not exists_result.stat.exists

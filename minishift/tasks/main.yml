@@ -1,0 +1,32 @@
+---
+# tasks file for minishift
+
+  - name: Check for existing docker-machine-kvm
+    become: true
+    stat: path=/usr/local/bin/docker-machine-driver-kvm
+    register: kvm_result
+
+  - name: Download docker-machine-kvm
+    become: true
+    get_url: url='https://github.com/dhiltgen/docker-machine-kvm/releases/download/v{{ docker_kvm_version }}/docker-machine-driver-kvm' dest='/usr/local/bin/' remote_src=yes mode=0775
+    when: not kvm_result.stat.exists
+
+  - name: Create libvirt group
+    become: true
+    shell: groupadd libvirt
+    when: not kvm_result.stat.exists
+
+  - name: Add vagarant to libvirt group
+    become: true
+    shell: usermod -aG libvirt vagrant
+    when: not kvm_result.stat.exists
+
+  - name: Check for existing minishift
+    stat: path=/usr/local/bin/minishift
+    register: minishift_result
+
+  - name: Download and extract minishift
+    become: true
+    unarchive: src='https://github.com/minishift/minishift/releases/download/v{{ minishift_version }}/minishift-{{ minishift_version }}-linux-amd64.tgz' dest='/usr/local/bin/' remote_src=yes mode=0775
+    when: not minishift_result.stat.exists    
+

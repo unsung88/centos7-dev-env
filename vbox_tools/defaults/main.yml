@@ -1,0 +1,12 @@
+---
+# defaults file for vbox_tools
+# vbox_packages:
+#   - virtualbox-guest-dkms 
+#   - virtualbox-guest-utils 
+#   - virtualbox-guest-x11
+vboxclient_options:
+  - clipboard
+  - draganddrop
+  - display
+  - checkhostversion
+  - seamless

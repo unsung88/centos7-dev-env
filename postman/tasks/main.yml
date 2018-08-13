@@ -1,0 +1,41 @@
+---
+# tasks file for postman
+  - name: Check to see if postman exists
+    become: true
+    stat: path="/opt/Postman/Postman"
+    register: postman_exists
+
+  - name: Download and extract postman
+    become: true
+    unarchive: src=https://dl.pstmn.io/download/latest/linux64 dest='/opt/' mode=0775 remote_src=yes
+    when: not postman_exists.stat.exists
+
+  - name: Check to see if postman desktop exists
+    become: true
+    stat: path="/usr/share/applications/postman.desktop"
+    register: postman_desktop_exists
+
+  - name: Copy desktop launcher
+    become: true
+    copy: src='postman.desktop' dest='/usr/share/applications/' mode=0775
+    when: not postman_desktop_exists.stat.exists
+
+  - name: Check to see if postman link exists
+    become: true
+    stat: path="/usr/bin/postman"
+    register: postman_link_exists
+
+  - name: Create binary link
+    become: true
+    file: src='/opt/Postman/Postman' dest='/usr/bin/postman' state=link mode=0777
+    when: not postman_link_exists.stat.exists
+
+  - name: Check to see if postman desktop icon exists
+    become: true
+    stat: path="/usr/share/icons/postman.png"
+    register: postman_desktop_icon_exists
+
+  - name: Link icon
+    become: true
+    file: src='/opt/Postman/app/resources/app/assets/icon.png' dest='/usr/share/icons/postman.png' state=link mode=0777
+    when: not postman_desktop_icon_exists.stat.exists

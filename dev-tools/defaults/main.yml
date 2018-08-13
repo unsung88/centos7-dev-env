@@ -1,0 +1,44 @@
+---
+# defaults file for dev-tools
+
+dev_tools:
+  - automake 
+  - autofs 
+  - autoconf 
+  - wget 
+  - cmake 
+  - cpp 
+  - dos2unix 
+  - expect 
+  - gcc 
+  - gdb 
+  - rng-tools 
+  - rpm-build 
+  - perl-CPAN 
+db_dev_packages:
+  - sqlite-devel 
+  - mariadb-devel 
+  - db4-devel 
+py_dev_packages:
+  - python-devel 
+  - python3-devel
+compression_dev_packages:
+  - zlib-devel
+  - bzip2-devel 
+  - xz-devel 
+graphics_dev_packages:
+  - ncurses-devel 
+  - gnutls-devel 
+  - tk-devel 
+  - cairo
+  - cairo-devel
+security_dev_packages:
+  - readline-devel 
+  - openssl-devel 
+  - pam-devel 
+misc_dev_packages:
+  - gdbm-devel 
+  - libffi-devel 
+  - libpcap-devel 
+  - expat-devel
+  - libxml2-devel 

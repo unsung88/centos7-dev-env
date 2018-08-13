@@ -1,0 +1,16 @@
+---
+# tasks file for packer
+
+  - name: Check for existing Packer
+    stat: path={{ packer_file }}
+    register: packer_result
+
+  - name: Check existing packer packer version
+    shell: '{{ packer_file }} -v'
+    register: packer_version_result
+    when: packer_result.stat.exists
+
+  - name: Download and extract packer
+    become: true
+    unarchive: src=https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip dest=/usr/local/bin mode=0775 remote_src=yes
+    when: not packer_result.stat.exists or packer_version_result.stdout != packer_version

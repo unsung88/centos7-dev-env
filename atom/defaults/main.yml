@@ -1,0 +1,3 @@
+---
+# defaults file for atom
+atom_repo_key: "https://packagecloud.io/AtomEditor/atom/gpgkey"

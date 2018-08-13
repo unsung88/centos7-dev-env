@@ -1,0 +1,33 @@
+---
+# tasks file for postgresql
+  - name: Check to see if PostgreSQL is already installed
+    stat: path="/usr/pgsql-{{ pg_version }}/bin/initdb"
+    register: pg_exists
+
+  #add postgresql repo
+  - name: Install PostgreSQL repo
+    become: true
+    yum: name="{{ pg_repo_rpm }}" state=present
+    when: not pg_exists.stat.exists
+
+  - name: Install PostgreSQL and supporting packages
+    become: true
+    yum: name={{ item }} state=latest update_cache=yes
+    with_items: '{{ pg_packages }}'
+    when: not pg_exists.stat.exists
+
+  - name: Check to see if PostgreSQL is already initialized
+    become: true
+    stat: path="/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf"
+    register: pg_init
+
+  - name: Initialize the DB
+    become: true
+    shell: "/usr/pgsql-{{ pg_version }}/bin/postgresql{{ pg_short_ver }}-setup initdb"
+    when: not pg_init.stat.exists
+
+  - name: Enable and start postgreSQL
+    become: true
+    service: name='postgresql-{{ pg_version }}' enabled=yes state=started
+
+

@@ -1,0 +1,28 @@
+---
+# tasks file for Mate
+
+  - name: Install X11
+    become: true 
+    yum: name='@X Window system' state=latest
+
+  - name: Check to see if persistsgui.sh file exists
+    become: true
+    stat: path="'{{ HOME}}/persistgui.sh"
+    register: persist_exists
+
+  - name: Copy persistgui script
+    copy: src=persistgui.sh dest='{{ HOME}}' mode=0775
+    when: not persist_exists.stat.exists
+
+  - name: Check to see if startgui.sh file exists
+    become: true
+    stat: path="'{{ HOME}}/startgui.sh"
+    register: startgui_exists
+
+  - name: Copy startgui script
+    copy: src=startgui.sh dest='{{ HOME}}' mode=0775
+    when: not startgui_exists.stat.exists
+
+  - name: Install MATE Desktop
+    become: true
+    shell: 'yum groupinstall -y "MATE Desktop"'

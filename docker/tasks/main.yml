@@ -1,0 +1,26 @@
+---
+# tasks file for docker
+
+  - name: Check to see if docker is already installed
+    stat: path=/usr/bin/dockerd
+    register: exists_result
+
+  - name: Download get_docker script
+    get_url: url=https://get.docker.com/ dest='{{ HOME }}/get-docker.sh' mode=0775
+    when: not exists_result.stat.exists
+
+  - name: Run get-docker
+    become: true
+    shell: "{{ HOME }}/get-docker.sh"
+    when: not exists_result.stat.exists
+
+  - name: Add vagarant to docker group
+    become: true
+    shell: usermod -aG docker vagrant
+    when: not exists_result.stat.exists
+
+  - name: Enable and start docker service
+    become: true
+    service: name=docker enabled=yes state=started
+    when: not exists_result.stat.exists
+ 

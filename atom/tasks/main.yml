@@ -1,0 +1,26 @@
+---
+# tasks file for atom
+  - name: Check to see if Atom repo file exists
+    become: true
+    stat: path="/etc/yum.repos.d/atom.repo"
+    register: atom_repo_exists
+
+  - name: Import Atom Repo key
+    become: true
+    rpm_key: key="{{ atom_repo_key }}" state=present
+    when: not atom_repo_exists.stat.exists
+
+  - name: Add Atom repo
+    become: true
+    copy: src='atom.repo' dest='/etc/yum.repos.d/' mode=0775
+    when: not atom_repo_exists.stat.exists
+
+  - name: Check to see if Atom is already installed
+    become: true
+    stat: path="/usr/bin/atom"
+    register: atom_exists
+
+  - name: Install Atom
+    become: true
+    yum: name=atom state=latest update_cache=yes
+    when: not atom_exists.stat.exists
