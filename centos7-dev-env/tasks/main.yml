@@ -49,7 +49,7 @@
     when: install_packer
 
   - name: Install Terraform
-    import_role: name=andrewrothstein.terraform
+    import_role: name=terraform
     when: install_terraform
 
   - name: Altinstall Python2

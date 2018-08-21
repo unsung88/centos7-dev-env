@@ -5,7 +5,7 @@
     stat: path={{ packer_file }}
     register: packer_result
 
-  - name: Check existing packer packer version
+  - name: Check existing packer version
     shell: '{{ packer_file }} -v'
     register: packer_version_result
     when: packer_result.stat.exists

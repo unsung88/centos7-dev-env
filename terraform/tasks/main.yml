@@ -1,0 +1,15 @@
+---
+# tasks file for terraform
+  - name: Check for existing Terraform
+    stat: path={{ tf_file }}
+    register: tf_result
+
+  - name: Check existing terraform version
+    shell: '{{ tf_file }} -v'
+    register: tf_version_result
+    when: tf_result.stat.exists
+
+  - name: Download and extract terraform
+    become: true
+    unarchive: src=https://releases.hashicorp.com/terraform/{{ tf_version }}/terraform_{{ tf_version }}_linux_amd64.zip dest=/usr/local/bin mode=0775 remote_src=yes
+    when: not tf_result.stat.exists or tf_version_result.stdout != tf_version

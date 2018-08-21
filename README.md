@@ -15,7 +15,7 @@ master currently includes: (Latest = current stable or current in repo)
 * gcc/g++ - Latest packages
 * docker - Latest CE package
 * ansible - Latest package
-* terraform 0.11.7
+* terraform 0.11.8
 * packer 1.2.5
 * postgreSQL 9.6
 * pgadmin4 v3.1 (via python)
@@ -56,7 +56,6 @@ vagrant-vmware-desktop plugin (Purchase at https://www.vagrantup.com/vmware/inde
 2. `vagrant plugin install vagrant-hostmanager`
 3. Open ./centos7-dev-env/vars/main.yml. set items you wish to install to "true".  Set those you do not wish to install to "false" and save.
    Set the appropriate VM Guest install to true and the other to false
-4. Install the terraform role `ansible-galaxy install andrewrothstein.terraform`
 
 For VMware Fusion or Workstation
 1. `vagrant plugin install vagrant-vmware-desktop`
