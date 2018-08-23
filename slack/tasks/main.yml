@@ -1,0 +1,47 @@
+---
+# tasks file for slack
+  - name: Check if slack is already installed
+    yum:
+      list: slack
+    register: slack_installed
+
+  - name: Set fact 
+    set_fact: 
+      slack_exists: slack_installed.results | selectattr("yumstate", "match", "installed") | list | length > 0
+
+  - name: List slack packages
+    yum:
+      list: slack
+    register: slack_packages
+    when: slack_exists
+
+  - name: Print slack_packages
+    debug:
+      msg: "Slack packages {{ slack_packages }}"
+    when: debug_all or debug_slack
+
+  - name: Get Installed Slack Version
+    set_fact: 
+      slack_installed_ver: "{{slack_packages|json_query(slack_ver_query)}}"
+    when: slack_packages
+
+  - name: Print slack_installed_ver fact
+    debug:
+      msg: "Slack version is {{ slack_installed_ver }}"
+    when: debug_all or debug_slack
+
+  - name: Download slack RPM
+    become: true
+    get_url: url={{ slack_uri }} dest={{ HOME }} mode=0775 remote_src=yes
+    when: not slack_exists or slack_installed_ver != slack_version
+
+  - name: Install Slack Dependencies
+    become: true
+    yum: name={{ item }} state=latest
+    with_items: '{{ slack_packages }}'
+    when: not slack_exists
+
+  - name: Install Slack
+    become: true
+    yum: name='{{ HOME }}/{{ slack_rpm }}' state=present
+    when: not slack_exists or slack_installed_ver != slack_version

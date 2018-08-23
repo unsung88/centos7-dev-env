@@ -32,12 +32,19 @@
   install_firefox: true
   install_terminator: true
   install_oh_my_zsh: true  
+  install_slack: true
  
  # Choose one of these based on your Hypervisor of choice
   # VMWare
-  install_open_vm_tools: false
+  install_open_vm_tools: true
+  open_vm_tools_packages:
+    - open-vm-tools
+    - open-vm-tools-desktop
   # Virtualbox
-  install_vbox_tools: true
+  install_vbox_tools: false
 
+# Reboot after provisioning
+  reboot: true
   
-
+# Enable debug messages for all roles
+  debug_all: false

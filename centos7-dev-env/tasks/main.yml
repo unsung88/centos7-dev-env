@@ -131,8 +131,13 @@
 
   - name: Install Open VM Tools
     become: true
-    yum: name="open-vm-tools" state=present
+    yum: name={{ item }} state=latest
+    with_items: '{{ open_vm_tools_packages }}'
     when: install_open_vm_tools 
+
+  - name: Install Slack
+    import_role: name=slack
+    when: install_slack
 
   - name: Install Oh My zsh
     import_role: name=oh_my_zsh
@@ -144,6 +149,7 @@
     async: 0
     poll: 0
     ignore_errors: true
+    when: reboot
 
 #   - name: Fix the broken EULA prompt
 #     become: true

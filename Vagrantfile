@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
     config.vm.box_check_update = false
     config.vm.define "centos7-dev-env"
     config.vm.network "private_network", ip: "192.168.105.27"
-    #config.vm.synced_folder ".", "/home/vagrant/sync", disabled: true
+    config.vm.synced_folder ".", "/home/vagrant/sync" #, disabled: true
 
     config.vm.provision :shell, :inline => <<'EOF'
 if [ ! -f "/home/vagrant/.ssh/id_rsa" ]; then

@@ -3,6 +3,9 @@ CentOS 7 development VM built via Vagrant for VMware Fusion
 Uses Ansible provisioner
 
 The master branch has an all-in-one environment that is meant to provide a template for simpler builds.
+Note: The VM's specs can be reduced in teh Vagrantfile.  It will run reasonably well with 1 vCPU and 4G RAM.
+      The current specs of 3 vCPUs and 8G RAM reduce the time required to provision.
+
 
 Branches
 * master - all-in-one environment
@@ -34,6 +37,7 @@ master currently includes: (Latest = current stable or current in repo)
 * Perl 5.16.3
 * Python 2.7.15
 * Python 3 Latest package (3.6.5)
+* Slack (3.2.1 Beta)
 * npm v5.6.0
 * node.js 8.11.3 (LTS)
 * Open VM Tools - Latest package
@@ -88,10 +92,31 @@ To always boot into the GUI
 4. `sudo ln -s '/usr/lib/systemd/system/graphical.target' '/etc/systemd/system/default.target'`
 
 
+## Updating the VM
+Not all roles support updating.  This is a work in progress!
+Most packages that install via yum will be updated when update_packages is set to true
+Some roles that do have support for updating are git, terraform, packer, and slack.
+The only role that has proper version checking and enforcement for the RPM version is Slack.  The other roles will be updated to match this over time.
+1. Add Ansible Roles or modify versions
+2. Set the install_<item> variable for each that was added/updated to true
+3. run `vagrant provision`
+
+
+## Recent updates
+* ansible.cfg now properly references the inventory file
+* Added slack role with proper version checking and enforcement for the RPM
+* Added debug_all var - this will be implemented across all roles to toggle debug message printing
+* Added var to control the post provisioning reboot - this is mainly for testing of the Ansible code
+* Added "Updating the VM" and "Recent updates" sections to README.md
+* Enabled shared folder from host . to VM /home/vagrant/sync - this is also a drive on the MATE Desktop (changed in Vagrantfile)
+* Added open-vm-tools-desktop package, which seems to fix the copy/paste issue in VMware
+
+
 ## TODO
+Update roles for prpoer RPM version checking and enforcement 
+
 
 ## Known Issues
 * Virtualbox provider will sometimes not begin provisioning after VM creation
   When this happens, it is necessary to run `vagrant --provision`
-* copy/Paste is not working from Host to Fusion console
 * Oh-My-Zsh will throw an error but this is expected.  The install completes. The shell can be changed by the user if desired.
