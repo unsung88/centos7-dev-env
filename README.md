@@ -1,9 +1,9 @@
 # centos7-dev-env
-CentOS 7 development VM built via Vagrant for VMware Fusion
+CentOS 7 development VM built via Vagrant for VMware Fusion/Desktop or Virtualbox
 Uses Ansible provisioner
 
 The master branch has an all-in-one environment that is meant to provide a template for simpler builds.
-Note: The VM's specs can be reduced in teh Vagrantfile.  It will run reasonably well with 1 vCPU and 4G RAM.
+Note: The VM's specs can be reduced in the Vagrantfile.  It will run reasonably well with 1 vCPU and 4G RAM.
       The current specs of 3 vCPUs and 8G RAM reduce the time required to provision.
 
 
@@ -120,7 +120,7 @@ The other roles will be updated to match this over time.
 
 
 ## TODO
-Update roles for prpoer RPM version checking and enforcement 
+Update roles for proper RPM version checking and enforcement 
 
 
 ## Known Issues
