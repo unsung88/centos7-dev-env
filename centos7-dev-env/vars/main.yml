@@ -43,8 +43,8 @@
   # Virtualbox
   install_vbox_tools: false
 
-# Reboot after provisioning
-  reboot: true
+# Shutdown VM after provisioning
+  shutdown: true
   
 # Enable debug messages for all roles
   debug_all: false

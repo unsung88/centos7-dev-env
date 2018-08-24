@@ -1,7 +1,6 @@
 ---
 # defaults file for slack
 debug_slack: false
-slack_ver_query: "results[?name=='slack'].version | [0]"
 slack_version: '3.2.1' 
 slack_rpm: 'slack-{{ slack_version }}-0.1.fc21.x86_64.rpm'
 slack_uri: 'https://downloads.slack-edge.com/linux_releases/{{ slack_rpm }}'

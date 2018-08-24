@@ -143,13 +143,13 @@
     import_role: name=oh_my_zsh
     when: install_oh_my_zsh
 
-  - name: Rebooting VM
+  - name: Shutdown VM
     become: true
-    command: shutdown -r +1 --no-wall
+    command: shutdown -h +1 --no-wall
     async: 0
     poll: 0
     ignore_errors: true
-    when: reboot
+    when: shutdown
 
 #   - name: Fix the broken EULA prompt
 #     become: true

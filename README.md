@@ -96,13 +96,20 @@ To always boot into the GUI
 Not all roles support updating.  This is a work in progress!
 Most packages that install via yum will be updated when update_packages is set to true
 Some roles that do have support for updating are git, terraform, packer, and slack.
-The only role that has proper version checking and enforcement for the RPM version is Slack.  The other roles will be updated to match this over time.
+The only roles that have proper version checking and enforcement for the RPM version are Slack and PostgreSQL.  
+The other roles will be updated to match this over time.
+
 1. Add Ansible Roles or modify versions
 2. Set the install_<item> variable for each that was added/updated to true
 3. run `vagrant provision`
 
 
 ## Recent updates
+* updated Slack role to properly get the version of only the installed package
+* updated postgresql role to have proper version checking and enforcement for the RPM
+* changed reboot after provisioning to shutdown
+
+## Older updates 
 * ansible.cfg now properly references the inventory file
 * Added slack role with proper version checking and enforcement for the RPM
 * Added debug_all var - this will be implemented across all roles to toggle debug message printing

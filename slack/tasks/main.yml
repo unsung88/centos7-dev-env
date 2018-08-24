@@ -3,27 +3,18 @@
   - name: Check if slack is already installed
     yum:
       list: slack
-    register: slack_installed
+    register: slack_packages
 
   - name: Set fact 
     set_fact: 
-      slack_exists: slack_installed.results | selectattr("yumstate", "match", "installed") | list | length > 0
+      slack_exists: slack_packages.results | selectattr("yumstate", "match", "installed") | list | length > 0
 
-  - name: List slack packages
-    yum:
-      list: slack
-    register: slack_packages
-    when: slack_exists
-
-  - name: Print slack_packages
-    debug:
-      msg: "Slack packages {{ slack_packages }}"
-    when: debug_all or debug_slack
-
-  - name: Get Installed Slack Version
+  - name: Set fact 
     set_fact: 
-      slack_installed_ver: "{{slack_packages|json_query(slack_ver_query)}}"
-    when: slack_packages
+      slack_installed_ver: "{{ slack_packages.results 
+        | selectattr('yumstate', 'match', 'installed')
+        | map(attribute='version') | list | first | default('0.0.0') }}"
+    when: slack_exists
 
   - name: Print slack_installed_ver fact
     debug:
