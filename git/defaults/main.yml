@@ -3,3 +3,26 @@
 git_version: '2.18.0'
 git_src: '{{ HOME }}/git-{{ git_version }}'
 git_file: /usr/local/bin/git
+git_config_items:  {
+    "user.email": "{{ git_email }}",
+    "user.name": "{{ git_username }}",
+    "core.editor": "vim",
+    "core.pager": "less",
+    "diff.tool": "vimdiff",
+    "diff.algorithm": "patience",
+    "merge.tool": "vimdiff",
+    "difftool.prompt": "false",
+    "github.user": "{{ github_user }}",
+    "github.token": "{{ github_token }}",
+    "push.default": "matching",
+    "color.ui": "auto",
+    "color.branch.current": "yellow bold",
+    "color.branch.local": "green bold",
+    "color.branch.remote": "cyan bold",
+    "color.status.untracked": "red bold",
+    "color.status.changed": "yellow reverse"
+  }
+git_username: "Your name"
+git_email: "user@gdomain.com"
+github_user: "github_username"
+github_token: "replace_me_with_a_real_token"

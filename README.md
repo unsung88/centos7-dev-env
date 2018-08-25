@@ -10,8 +10,8 @@ Note: The VM's specs can be reduced in the Vagrantfile.  It will run reasonably 
 Branches
 * master - all-in-one environment
 
-
-master currently includes: (Latest = current stable or current in repo)
+## Installation of Applications and Packages
+Latest = current stable or current in repo
 * git 2.18.0
 * automake - Latest package
 * zsh - Latest package
@@ -43,6 +43,13 @@ master currently includes: (Latest = current stable or current in repo)
 * Open VM Tools - Latest package
 
 For items with fixed versions, these are defined and can be changed for each Ansible role in the ./<role>/defaults/main.yml file.
+
+## Application Configuration
+Configuration variables are defined and can be changed for each Ansible role in the ./<role>/defaults/main.yml file.
+To Enable/Disable configuration, set the configure_<app> boolean to true in centos7-dev-env/vars/main.yml
+Configuration options available for:
+* git
+* postgreSQL
 
 
 ## Requirements
@@ -105,11 +112,34 @@ The other roles will be updated to match this over time.
 
 
 ## Recent updates
+* added default installed ver variable value to prevent a crash when no packages are installed for a given app
+* added a mkdir call in the Vagrantfile to ensure /vagrant exists
+* added configuration for git - sets parameters in the following sections 
+	* [core]
+	* [color "branch"]
+	* [color "status"]
+	* [color]
+	* [github]
+	* [push]
+	* [diff]
+	* [user]
+	* [difftool]
+	* [merge]
+* installs python2-pip for system python module installation
+* added pip install of psycopg2 for Ansible postgres module
+* added configuration for postgreSQL - sets/creates the following
+	* postgresql.conf - sets listen to the public IP, sets max_connections to 300, scales mem and caching based on system RAM
+	* pg_hba.conf - adds entry for IPv4 authentication by password for the public IP of the VM with /24 (CIDR)
+	* creates role and grants superuser
+	* creates a database
+	* adds plperl and plythonu extensions to the database
+
+
+## Older updates 
 * updated Slack role to properly get the version of only the installed package
 * updated postgresql role to have proper version checking and enforcement for the RPM
 * changed reboot after provisioning to shutdown
-
-## Older updates 
+*
 * ansible.cfg now properly references the inventory file
 * Added slack role with proper version checking and enforcement for the RPM
 * Added debug_all var - this will be implemented across all roles to toggle debug message printing
@@ -120,7 +150,9 @@ The other roles will be updated to match this over time.
 
 
 ## TODO
-Update roles for proper RPM version checking and enforcement 
+Update roles for proper RPM version checking and enforcement
+Add configuration for other apps such as NGINX
+move the remote_tmp directory so it is available when switcing to other users such as postgres
 
 
 ## Known Issues

@@ -4,6 +4,7 @@ debug_pg: false
 pg_version: '9.6'
 pg_short_ver: '96'
 pg_long_ver: '9.6.10'
+pgsql_installed_ver: '0.0.0'
 pg_repo_rpm: 'https://download.postgresql.org/pub/repos/yum/{{ pg_version }}/redhat/rhel-{{ ansible_distribution_major_version }}-x86_64/pgdg-{{ ansible_distribution|lower }}{{ pg_short_ver }}-{{ pg_version }}-3.noarch.rpm'
 pg_packages:
   - 'postgresql{{ pg_short_ver }}-libs'
@@ -11,3 +12,15 @@ pg_packages:
   - 'postgresql{{ pg_short_ver }}-plperl'
   - 'postgresql{{ pg_short_ver }}-server'
   - 'postgresql{{ pg_short_ver }}-plpython'
+#configuration
+pg_role: "pgadmin"
+pg_password: "password"
+pg_db: "test"
+pg_db_extns:
+  - plperl
+  - plpythonu
+pg_conf:
+  def_ip: "{{ ansible_default_ipv4.address }}"
+  max_connections: 300
+  pg_cidr_block: "{{ ansible_default_ipv4.address }}/24"
+

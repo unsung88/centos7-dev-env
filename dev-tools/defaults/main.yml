@@ -20,7 +20,8 @@ db_dev_packages:
   - mariadb-devel 
   - db4-devel 
 py_dev_packages:
-  - python-devel 
+  - python-devel
+  - python2-pip
   - python3-devel
 compression_dev_packages:
   - zlib-devel

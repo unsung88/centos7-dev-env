@@ -2,49 +2,52 @@
   # vars file for centos7-dev-env
   HOME: "/home/vagrant"
 
-  # enable/disable items
-  add_epel_repo: true
-  update_packages: true
-  install_dev_tools: true
-  install_mate: true
-  install_emacs: true
-  install_docker: true
-  install_terraform: true
-  install_packer: true
-  install_python2: true
-  py2_aws: true
-  py2_gcp: true
-  py2_azure: true
-  install_python3: true
-  py3_aws: true
-  py3_gcp: true
-  py3_azure: true 
-  install_git: true
-  install_minishift: true
-  install_node_js: true
+  # Enable/Disable Installation/Update of the following Applications
+  add_epel_repo: false
+  update_packages: false
+  install_dev_tools: false
+  install_mate: false
+  install_emacs: false
+  install_docker: false
+  install_terraform: false
+  install_packer: false
+  install_python2: false
+  py2_aws: false
+  py2_gcp: false
+  py2_azure: false
+  install_python3: false
+  py3_aws: false
+  py3_gcp: false
+  py3_azure: false 
+  install_git: false
+  install_minishift: false
+  install_node_js: false
   install_postgresql: true
-  install_pgadmin4: true
-  install_postman: true
-  install_vscode: true
-  install_atom: true
-  install_sublime_text: true
-  install_chrome: true
-  install_firefox: true
-  install_terminator: true
-  install_oh_my_zsh: true  
-  install_slack: true
- 
+  install_pgadmin4: false
+  install_postman: false
+  install_vscode: false
+  install_atom: false
+  install_sublime_text: false
+  install_chrome: false
+  install_firefox: false
+  install_terminator: false
+  install_slack: false
+  install_oh_my_zsh: false  
  # Choose one of these based on your Hypervisor of choice
   # VMWare
-  install_open_vm_tools: true
+  install_open_vm_tools: false
   open_vm_tools_packages:
     - open-vm-tools
     - open-vm-tools-desktop
   # Virtualbox
   install_vbox_tools: false
 
+# Enable/Disable configuration
+  configure_git: false
+  configure_postgresql: true
+
 # Shutdown VM after provisioning
-  shutdown: true
+  shutdown: false
   
 # Enable debug messages for all roles
   debug_all: false

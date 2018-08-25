@@ -38,6 +38,11 @@
     with_items: '{{ pg_packages }}'
     when: not pgsql_exists or pgsql_installed_ver != pg_long_ver
 
+  - name: Install Python psycopg2 module 
+    become: true
+    pip: executable='/usr/bin/pip2.7' name='psycopg2' state=latest
+    when:  configure_postgresql or not pgsql_exists or pgsql_installed_ver != pg_long_ver
+
   - name: Check to see if PostgreSQL is already initialized
     become: true
     stat: path="/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf"
@@ -48,8 +53,50 @@
     shell: "/usr/pgsql-{{ pg_version }}/bin/postgresql{{ pg_short_ver }}-setup initdb"
     when: not pg_init.stat.exists
 
+  - name: Setup postgresql.conf
+    become: true  
+    template: src=postgresql.conf.j2 dest="/var/lib/pgsql/{{ pg_version }}/data/postgresql.conf" mode=0644
+    notify: Restart postgresql
+    when: configure_postgresql
+
+  - name: Setup pg_hba.conf
+    become: true  
+    template: src=pg_hba.conf.j2 dest="/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf" mode=0644
+    with_dict: "{{ pg_conf }}"
+    notify: Restart postgresql
+    when: configure_postgresql
+
   - name: Enable and start postgreSQL
     become: true
     service: name='postgresql-{{ pg_version }}' enabled=yes state=started
 
+  - name: Create Database "{{ pg_db }}"
+    become: true
+    become_user: postgres
+    postgresql_db:
+      name: "{{ pg_db }}"
+      encoding: UTF-8
+      lc_collate: en_US.UTF-8
+      lc_ctype: en_US.UTF-8
+    when: configure_postgresql
+
+  - name: Create Role "{{ pg_role }}"
+    become: true
+    become_user: postgres
+    postgresql_user:
+      db: "{{ pg_db }}"
+      name: "{{ pg_role }}"
+      password: "{{ pg_password }}"
+      role_attr_flags: CREATEDB,SUPERUSER,LOGIN
+      expires: infinity
+    when: configure_postgresql
+
+  - name: Add extensions to "{{ pg_db }}"
+    become: true
+    become_user: postgres
+    postgresql_ext:
+      name: "{{ item }}"
+      db: test
+    with_items: "{{ pg_db_extns }}"
+    when: configure_postgresql
 

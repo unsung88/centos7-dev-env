@@ -60,9 +60,9 @@
     import_role: name=python3
     when: install_python3 or py3_aws or py3_gcp or py3_azure
 
-  - name: Install/Update git
+  - name: Install/Update/Configure git
     import_role: name=git
-    when: install_git
+    when: install_git or configure_git
 
   - name: Install minishift
     import_role: name=minishift
