@@ -150,9 +150,9 @@ The other roles will be updated to match this over time.
 
 
 ## TODO
-Update roles for proper RPM version checking and enforcement
-Add configuration for other apps such as NGINX
-move the remote_tmp directory so it is available when switcing to other users such as postgres
+* Update roles for proper RPM version checking and enforcement
+* Add configuration for other apps such as NGINX
+* move the remote_tmp directory so it is available when switcing to other users such as postgres
 
 
 ## Known Issues
