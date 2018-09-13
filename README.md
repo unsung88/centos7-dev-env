@@ -21,7 +21,7 @@ Latest = current stable or current in repo
 * terraform 0.11.8
 * packer 1.2.5
 * postgreSQL 9.6
-* pgadmin4 v3.1 (via python)
+* pgadmin4 v3.3 (via python)
 * sublime text 3 - Latest package (evaluation version)
 * atom - Latest
 * emacs 26.1
