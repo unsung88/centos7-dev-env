@@ -107,7 +107,7 @@ for GUI
 
 To always boot into the GUI
 
-1. `sudo ~/persistsgui.sh`
+1. `sudo ~/persistgui.sh`
      OR
 2. `sudo systemctl set-default graphical.target`
 3. `sudo rm '/etc/systemd/system/default.target'`

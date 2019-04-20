@@ -13,6 +13,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add configuration for other apps such as NGINX.
 - move the remote_tmp directory so it is available when switcing to other users such as postgres.
 
+## [1.2.1] - 2019-04-20
+
+### Added
+
+- Tilix, a new terminal option.
+- Updated tasks to continue on new/upgrade of applications.
+
+### Changed
+
+- Updated centos7-dev-env variables.
+- Updated centos7-dev-env tasks.
+- Updated Syntax.
+- Fixed README.md for persistgui.
+- Fixed issue with python-psycopg2 install.
+
 ## [1.2.0] - 2019-04-20
 
 ### Added
