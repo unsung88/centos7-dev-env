@@ -1,0 +1,10 @@
+[ivoarch-Tilix]
+name=Copr repo for Tilix owned by ivoarch
+baseurl=https://copr-be.cloud.fedoraproject.org/results/ivoarch/Tilix/epel-7-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/ivoarch/Tilix/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
