@@ -4,14 +4,12 @@
   - name: Create remote_tmp
     file: path="{{ HOME }}/.ansible/tmp" mode=0775 state=directory
 
-  # remove bad repo
-  - name: Remove bad repo 1
+  - name: Remove bad repo(s)
     become: true
-    shell: yum-config-manager --disable direct-centos7-gluster
+    shell: |
+      yum-config-manager --disable direct-centos7-gluster
+      yum-config-manager --disable direct-centos7-xen
 
-  - name: Remove bad repo 2
-    become: true
-    shell: yum-config-manager --disable direct-centos7-xen
 
   - name: Install updated Xen
     become: true

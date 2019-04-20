@@ -30,12 +30,12 @@ EOF
     end
     config.vm.provider 'vmware_fusion' do |vmw| #, override|
         vmw.vmx['memsize'] = 8192
-        vmw.vmx['numvcpus'] = 1
+        vmw.vmx['numvcpus'] = 2
         vmw.gui = true
     end # vmware_fusion
     config.vm.provider 'virtualbox' do |vb| #, override|
         vb.memory = 8192
-        vb.cpus = 1
+        vb.cpus = 2
         vb.customize ["modifyvm", :id, "--vram", "128", "--clipboard", "bidirectional"]
         vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
         vb.gui = true
