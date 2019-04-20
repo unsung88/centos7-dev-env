@@ -13,6 +13,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add configuration for other apps such as NGINX.
 - move the remote_tmp directory so it is available when switcing to other users such as postgres.
 
+## [1.2.2] - 2019-04-20
+
+### Changed
+
+- python2 to 2.7.16
+- packer to 1.4.0
+- terraform to 0.11.13
+- git to 2.21.0
+- postgresql to 11.2
+- postgresql repo to new "latest" repo
+- set IP connections (127.0.0.1:5432) to "password" auth in pg_hba.conf template
+- pgadmin to 4.5
+- slack to 3.3.8 (still beta)
+- changed all pip and yum with_items loops to new Ansible syntax to eliminate deprecation warnings
+
+
+
 ## [1.2.0] - 2019-04-20
 
 ### Added
