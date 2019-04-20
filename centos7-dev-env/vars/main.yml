@@ -7,7 +7,7 @@
   update_packages: true
   install_dev_tools: true
   install_mate: true
-  install_emacs: true
+  install_emacs: false
   install_docker: true
   install_terraform: true
   install_packer: true
@@ -18,21 +18,21 @@
   install_python3: true
   py3_aws: true
   py3_gcp: true
-  py3_azure: true 
+  py3_azure: true
   install_git: true
   install_minishift: true
   install_node_js: true
-  install_postgresql: true
-  install_pgadmin4: true
+  install_postgresql: false
+  install_pgadmin4: false
   install_postman: true
   install_vscode: true
-  install_atom: true
-  install_sublime_text: true
+  install_atom: false
+  install_sublime_text: false
   install_chrome: true
   install_firefox: true
   install_terminator: true
-  install_slack: true
-  install_oh_my_zsh: true  
+  install_slack: false
+  install_oh_my_zsh: true
  # Choose one of these based on your Hypervisor of choice
   # VMWare
   install_open_vm_tools: true
@@ -44,10 +44,10 @@
 
 # Enable/Disable configuration
   configure_git: true
-  configure_postgresql: true
+  configure_postgresql: false
 
 # Shutdown VM after provisioning
   shutdown: true
   
 # Enable debug messages for all roles
-  debug_all: false
+  debug_all: true

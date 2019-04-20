@@ -5,9 +5,19 @@
     file: path="{{ HOME }}/.ansible/tmp" mode=0775 state=directory
 
   # remove bad repo
-  - name: Remove bad repo
+  - name: Remove bad repo 1
     become: true
     shell: yum-config-manager --disable direct-centos7-gluster
+
+  - name: Remove bad repo 2
+    become: true
+    shell: yum-config-manager --disable direct-centos7-xen
+
+  - name: Install updated Xen
+    become: true
+    yum:
+      name: "{{ xen_repo }}"
+      state: latest
 
   - name: Setup EPEL repo
     become: true
@@ -21,7 +31,7 @@
   - name: Upgrade all packages
     become: true
     yum: name=* state=latest
-    when: update_packages    
+    when: update_packages
 
   - name: Install Dev Tools
     import_role: name=dev-tools
@@ -34,7 +44,7 @@
   - name: Install VirtualBox Tools
     become: true
     import_role: name="vbox_tools"
-    when: install_vbox_tools 
+    when: install_vbox_tools
 
   - name: Install emacs
     import_role: name=emacs
@@ -133,7 +143,7 @@
     become: true
     yum: name={{ item }} state=latest
     with_items: '{{ open_vm_tools_packages }}'
-    when: install_open_vm_tools 
+    when: install_open_vm_tools
 
   - name: Install Slack
     import_role: name=slack

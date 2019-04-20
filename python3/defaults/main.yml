@@ -1,29 +1,30 @@
 ---
 # defaults file for python3
+
 iuscommunity_url: "https://{{ ansible_distribution|lower }}{{ ansible_distribution_major_version}}.iuscommunity.org/ius-release.rpm"
 py3_ver: '3.6'
 py3_packages:
-  - python36u 
-  - python36u-pip 
+  - python36u
+  - python36u-pip
   - python36u-devel
 py3_pip: '/usr/bin/pip3.6'
-py3_generic:  
-  - virtualenv 
-  - requests 
-  - cassandra-driver 
-  - falcon 
-  - flask 
-  - cryptography 
-  - gevent 
-  - gunicorn 
-  - httpie 
-  - flask-sqlalchemy 
-  - falcon-auth 
-  - PyJWT 
-  - PyJKS 
-  - psycopg2-binary 
-  - flake8 
+py3_generic:
+  - virtualenv
+  - requests
+  - cassandra-driver
+  - falcon
+  - flask
+  - cryptography
+  - gevent
+  - gunicorn
+  - httpie
+  - flask-sqlalchemy
+  - falcon-auth
+  - PyJWT
+  - PyJKS
+  - psycopg2-binary
+  - flake8
   - pycrypto
 py3_aws_modules:
-  - awscli
-  - awsebcli
+ - awscli
+ - awsebcli
