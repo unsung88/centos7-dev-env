@@ -42,3 +42,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Bad Repos list.
 - Updated Syntax where applicable.
 - Updated README.
+
+## [1.1.0] - 2018-08-25
+
+### Added
+
+- default installed ver variable value to prevent a crash when no packages are installed for a given app
+- a mkdir call in the Vagrantfile to ensure /vagrant exists
+- configuration for git - sets parameters in the following sections
+	- [core]
+	- [color "branch"]
+	- [color "status"]
+	- [color]
+	- [github]
+	- [push]
+	- [diff]
+	- [user]
+	- [difftool]
+	- [merge]
+- installs python2-pip for system python module installation
+- pip install of psycopg2 for Ansible postgres module
+- configuration for postgreSQL - sets/creates the following
+	- postgresql.conf - sets listen to the public IP, sets max_connections to 300, scales mem and caching based on system RAM
+	- pg_hba.conf - adds entry for IPv4 authentication by password for the public IP of the VM with /24 (CIDR)
+	- creates role and grants superuser
+	- creates a database
+	- adds plperl and plythonu extensions to the database
+
+
+## [1.0.0] - 2018-08-23
+
+### Added
+
+- Everything

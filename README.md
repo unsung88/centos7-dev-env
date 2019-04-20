@@ -17,16 +17,16 @@ Branches
 Latest = current stable or current in repo
 
 * ansible - Latest package
-* git 2.18.0
+* git 2.21.0
 * automake - Latest package
 * zsh - Latest package
 * gcc/g++ - Latest packages
 * docker - Latest CE package
 * ansible - Latest package
-* terraform 0.11.8
-* packer 1.2.5
-* postgreSQL 9.6
-* pgadmin4 v3.3 (via python)
+* terraform 0.11.13
+* packer 1.4.0
+* postgreSQL 11.2
+* pgadmin4 v4.5 (via python)
 * sublime text 3 - Latest package (evaluation version)
 * atom - Latest
 * emacs 26.1
@@ -40,9 +40,9 @@ Latest = current stable or current in repo
 * gdb - Latest package
 * X11 and MATE Desktop - Latest packages
 * Perl 5.16.3
-* Python 2.7.15
-* Python 3 Latest package (3.6.5)
-* Slack (3.2.1 Beta)
+* Python 2.7.16
+* Python 3 Latest package (3.6.7)
+* Slack 3.3.8 (Beta)
 * npm v5.6.0
 * node.js 8.11.3 (LTS)
 * Open VM Tools - Latest package
@@ -127,46 +127,7 @@ The other roles will be updated to match this over time.
 3. run `vagrant provision`
 
 
-## Recent updates
-
-* added default installed ver variable value to prevent a crash when no packages are installed for a given app
-* added a mkdir call in the Vagrantfile to ensure /vagrant exists
-* added configuration for git - sets parameters in the following sections
-	* [core]
-	* [color "branch"]
-	* [color "status"]
-	* [color]
-	* [github]
-	* [push]
-	* [diff]
-	* [user]
-	* [difftool]
-	* [merge]
-* installs python2-pip for system python module installation
-* added pip install of psycopg2 for Ansible postgres module
-* added configuration for postgreSQL - sets/creates the following
-	* postgresql.conf - sets listen to the public IP, sets max_connections to 300, scales mem and caching based on system RAM
-	* pg_hba.conf - adds entry for IPv4 authentication by password for the public IP of the VM with /24 (CIDR)
-	* creates role and grants superuser
-	* creates a database
-	* adds plperl and plythonu extensions to the database
-
-
-## Older updates
-
-* updated Slack role to properly get the version of only the installed package
-* updated postgresql role to have proper version checking and enforcement for the RPM
-* changed reboot after provisioning to shutdown
-*
-* ansible.cfg now properly references the inventory file
-* Added slack role with proper version checking and enforcement for the RPM
-* Added debug_all var - this will be implemented across all roles to toggle debug message printing
-* Added var to control the post provisioning reboot - this is mainly for testing of the Ansible code
-* Added "Updating the VM" and "Recent updates" sections to README.md
-* Enabled shared folder from host . to VM /home/vagrant/sync - this is also a drive on the MATE Desktop (changed in Vagrantfile)
-* Added open-vm-tools-desktop package, which seems to fix the copy/paste issue in VMware
-
-## TODO
+## Updates and TODO
 
 See CHANGELOG.md
 
