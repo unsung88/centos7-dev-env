@@ -38,10 +38,12 @@
     with_items: '{{ pg_packages }}'
     when: not pgsql_exists or pgsql_installed_ver != pg_long_ver
 
-  - name: Install Python psycopg2 module 
+  - name: Install Python psycopg2 module
     become: true
-    pip: executable='/usr/bin/pip2.7' name='psycopg2' state=latest
-    when:  configure_postgresql or not pgsql_exists or pgsql_installed_ver != pg_long_ver
+    yum:
+      name: python-psycopg2
+      state: present
+    when: configure_postgresql or not pgsql_exists or pgsql_installed_ver != pg_long_ver
 
   - name: Check to see if PostgreSQL is already initialized
     become: true
@@ -54,13 +56,13 @@
     when: not pg_init.stat.exists
 
   - name: Setup postgresql.conf
-    become: true  
+    become: true
     template: src=postgresql.conf.j2 dest="/var/lib/pgsql/{{ pg_version }}/data/postgresql.conf" mode=0644
     notify: Restart postgresql
     when: configure_postgresql
 
   - name: Setup pg_hba.conf
-    become: true  
+    become: true
     template: src=pg_hba.conf.j2 dest="/var/lib/pgsql/{{ pg_version }}/data/pg_hba.conf" mode=0644
     with_dict: "{{ pg_conf }}"
     notify: Restart postgresql
