@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.2] - 2019-04-20
 
+### Added
+
+- Quali shellfoundry python module
+
 ### Changed
 
 - python2 to 2.7.16
@@ -27,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - pgadmin to 4.5
 - slack to 3.3.8 (still beta)
 - changed all pip and yum with_items loops to new Ansible syntax to eliminate deprecation warnings
+- stopped Oh-My-Zsh hang but didn't fix the underlying bug
 
 ## [1.2.1] - 2019-04-20
 

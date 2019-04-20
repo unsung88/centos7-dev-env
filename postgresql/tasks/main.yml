@@ -34,8 +34,7 @@
 
   - name: Install PostgreSQL and supporting packages
     become: true
-    yum: name={{ item }} state=latest update_cache=yes
-    with_items: '{{ pg_packages }}'
+    yum: name={{ pg_packages }} state=latest update_cache=yes
     when: not pgsql_exists or pgsql_installed_ver != pg_long_ver
 
   - name: Install Python psycopg2 module
@@ -52,7 +51,7 @@
 
   - name: Initialize the DB
     become: true
-    shell: "/usr/pgsql-{{ pg_version }}/bin/postgresql{{ pg_short_ver }}-setup initdb"
+    shell: "/usr/pgsql-{{ pg_short_ver }}/bin/postgresql-{{ pg_short_ver }}-setup initdb"
     when: not pg_init.stat.exists
 
   - name: Setup postgresql.conf

@@ -75,3 +75,8 @@
   become: true
   pip: executable='{{ py2_pip }}' name=azure state=latest
   when: py2_azure
+
+- name: Install Shellfoundry pip module
+  become: true
+  pip: executable='{{ py2_pip }}' name=shellfoundry state=latest
+  when: py2_shellfoundry

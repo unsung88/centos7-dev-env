@@ -20,9 +20,9 @@
   when: not oh_my_zsh_exists.stat.exists
 
 - name: Install Oh-My-zsh
-  shell: 'export PATH=/usr/local/bin/:$PATH && . {{ HOME }}/install.sh'
+  shell: 'export PATH=/usr/local/bin/:$PATH && {{ HOME }}/install.sh'
   args:
-    creates: "{{ HOME }}/.zshrc"
+    creates: "{{ HOME }}/.oh-my-zsh"
     chdir: "{{ HOME }}"
     executable: /bin/zsh
   when: not oh_my_zsh_exists.stat.exists

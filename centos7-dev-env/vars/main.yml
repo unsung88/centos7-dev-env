@@ -15,10 +15,12 @@
   py2_aws: true
   py2_gcp: true
   py2_azure: true
+  py2_shellfoundry: true
   install_python3: true
   py3_aws: true
   py3_gcp: true
   py3_azure: true
+  py3_shellfoundry: true
   install_ansible: true
   install_git: true
   install_minishift: true

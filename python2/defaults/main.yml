@@ -28,4 +28,4 @@ py2_generic:
   - pycrypto
 py2_aws_modules:
   - awscli
-  - awsebcli
+  - awsebcli 

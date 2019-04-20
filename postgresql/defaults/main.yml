@@ -1,9 +1,9 @@
 ---
 # defaults file for postgresql
 debug_pg: false
-pg_version: '11.2'
+pg_version: '11'
 pg_short_ver: '11'
-pg_long_ver: '11.2.10'
+pg_long_ver: '11.2'
 pgsql_installed_ver: '0.0.0'
 pg_repo_rpm: 'https://download.postgresql.org/pub/repos/yum/{{ pg_short_ver }}/redhat/rhel-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm'
 pg_packages:

@@ -66,11 +66,11 @@
 
   - name: Altinstall Python2
     import_role: name=python2
-    when: install_python2 or py2_aws or py2_gcp or py2_azure
+    when: install_python2 or py2_aws or py2_gcp or py2_azure or py2_shellfoundry
 
   - name: Install Python3
     import_role: name=python3
-    when: install_python3 or py3_aws or py3_gcp or py3_azure
+    when: install_python3 or py3_aws or py3_gcp or py3_azure or py3_shellfoundry
 
   - name: Install Ansible
     import_role:
