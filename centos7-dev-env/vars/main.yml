@@ -23,7 +23,7 @@
   install_git: true
   install_minishift: true
   install_node_js: true
-  install_postgresql: false
+  install_postgresql: true
   install_pgadmin4: false
   install_postman: true
   install_vscode: true
@@ -31,7 +31,8 @@
   install_sublime_text: false
   install_chrome: true
   install_firefox: true
-  install_terminator: true
+  install_terminator: false
+  install_tilix: true
   install_slack: false
   install_oh_my_zsh: true
  # Choose one of these based on your Hypervisor of choice

@@ -1,0 +1,25 @@
+---
+# tasks file for tilix
+- name: Create repo file for Tilix
+  become: true
+  file:
+    path: "{{ tilix_repo }}"
+    state: touch
+
+- name:  Copy repo contents to tilix_repo
+  become: true
+  template:
+    src:  "{{ tilix_repo_file }}"
+    dest: "{{ tilix_repo }}"
+
+- name: Update Yum for new Repo
+  become: true
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install Tilix
+  become: true
+  yum:
+    name: tilix
+    state: latest

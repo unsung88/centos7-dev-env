@@ -47,18 +47,22 @@
   - name: Install emacs
     import_role: name=emacs
     when: install_emacs
+    ignore_errors: yes
 
   - name: Install Docker
     import_role: name=docker
     when: install_docker
+    ignore_errors: yes
 
   - name: Install Packer
     import_role: name=packer
     when: install_packer
+    ignore_errors: yes
 
   - name: Install Terraform
     import_role: name=terraform
     when: install_terraform
+    ignore_errors: yes
 
   - name: Altinstall Python2
     import_role: name=python2
@@ -72,42 +76,52 @@
     import_role:
       name: ansible
     when: install_ansible
+    ignore_errors: yes
 
   - name: Install/Update/Configure git
     import_role: name=git
     when: install_git or configure_git
+    ignore_errors: yes
 
   - name: Install minishift
     import_role: name=minishift
     when: install_minishift
+    ignore_errors: yes
 
   - name: Install NVM and Node.js
     import_role: name=node_js
     when: install_node_js
+    ignore_errors: yes
 
   - name: Install PostgreSQL
     import_role: name=postgresql
     when: install_postgresql
+    ignore_errors: yes
 
   - name: Install pgAdmin4
     import_role: name=pgadmin4
     when: install_pgadmin4
+    ignore_errors: yes
 
   - name: Install Postman
     import_role: name=postman
     when: install_postman
+    ignore_errors: yes
 
   - name: Install VS Code
     import_role: name=vscode
     when: install_vscode
+    ignore_errors: yes
 
   - name: Install Atom
     import_role: name=atom
     when: install_atom
+    ignore_errors: yes
 
   - name: Install Sublime Text
     import_role: name=sublime_text
     when: install_sublime_text
+    ignore_errors: yes
 
   - name: Check to see if Google Chrome is already Installed
     become: true
@@ -119,6 +133,7 @@
     become: true
     yum: name="https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm" state=present
     when: install_chrome and not chrome_exists.stat.exists
+    ignore_errors: yes
 
   - name: Check to see if Firefox is already Installed
     become: true
@@ -130,17 +145,35 @@
     become: true
     yum: name="firefox" state=present
     when: install_firefox and not firefox_exists.stat.exists
+    ignore_errors: yes
 
   - name: Check to see if Terminator is already Installed
     become: true
-    stat: path="/usr/bin/terminator"
+    stat:
+      path: "/usr/bin/terminator"
     register: terminator_exists
     when: install_terminator
 
   - name: Install Terminator
     become: true
-    yum: name="terminator" state=present
+    yum:
+      name: "terminator"
+      state: present
     when: install_terminator and not terminator_exists.stat.exists
+    ignore_errors: yes
+
+  - name: Check to see if Tilix is already Installed
+    become: true
+    stat:
+      path: "/etc/yum.repos.d/tilix.repo"
+    register: tilix_exists
+    when: install_tilix
+
+  - name: Install Tilix
+    import_role:
+      name: tilix
+    when: install_tilix
+    ignore_errors: yes
 
   - name: Install Open VM Tools
     become: true
@@ -151,10 +184,12 @@
   - name: Install Slack
     import_role: name=slack
     when: install_slack
+    ignore_errors: yes
 
   - name: Install Oh My zsh
     import_role: name=oh_my_zsh
     when: install_oh_my_zsh
+    ignore_errors: yes
 
   - name: Shutdown VM
     become: true

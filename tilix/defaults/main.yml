@@ -1,0 +1,5 @@
+---
+# defaults file for tilix
+
+tilix_repo: "/etc/yum.repos.d/tilix.repo"
+tilix_repo_file: "../files/tilix.repo"
