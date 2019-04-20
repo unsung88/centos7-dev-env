@@ -79,7 +79,7 @@
 # "local" is for Unix domain socket connections only
 local   all             all                                     peer
 # IPv4 local connections:
-host    all             all             127.0.0.1/32            ident
+host    all             all             127.0.0.1/32            password
 host    all             all             {{ pg_conf.pg_cidr_block }}		password       
 # IPv6 local connections:
 host    all             all             ::1/128                 ident

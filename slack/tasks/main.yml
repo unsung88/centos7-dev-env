@@ -28,8 +28,7 @@
 
   - name: Install Slack Dependencies
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ slack_packages }}'
+    yum: name={{ slack_packages }} state=latest
     when: not slack_exists
 
   - name: Install Slack

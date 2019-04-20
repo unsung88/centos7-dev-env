@@ -33,8 +33,7 @@
 
   - name: Install Python3 and dev packages
     become: true
-    yum: name={{ item }} state=latest update_cache=yes
-    with_items: '{{ py3_packages }}'
+    yum: name={{ py3_packages }} state=latest update_cache=yes
     when: install_python3 and not exists_result.stat.exists
 
   - name: Update pip module
@@ -44,14 +43,12 @@
 
   - name: Install standard pip modules
     become: true
-    pip: executable='{{ py3_pip }}' name='{{ item }}' state=latest
-    with_items: '{{ py3_generic }}'
+    pip: executable='{{ py3_pip }}' name='{{ py3_generic }}' state=latest
     when: install_python3 and not exists_result.stat.exists
 
   - name: Install AWS pip modules
     become: true
-    pip: executable='{{ py3_pip }}' name='{{ item }}' state=latest
-    with_items: '{{ py3_aws_modules }}'
+    pip: executable='{{ py3_pip }}' name='{{ py3_aws_modules }}' state=latest
     when: py3_aws
 
   - name: Install Google-Cloud pip module

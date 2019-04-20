@@ -1,6 +1,6 @@
 ---
 # defaults file for git
-git_version: '2.18.0'
+git_version: '2.21.0'
 git_src: '{{ HOME }}/git-{{ git_version }}'
 git_file: /usr/local/bin/git
 git_config_items:  {

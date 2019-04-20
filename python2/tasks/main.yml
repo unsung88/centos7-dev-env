@@ -7,8 +7,7 @@
 
 - name: Install required packages
   become: true
-  yum: name={{ item }} state=latest
-  with_items: '{{ py2_packages }}'
+  yum: name={{ py2_packages }} state=latest
   when: not exists_result.stat.exists
 
 - name: Download and extract python2
@@ -59,14 +58,12 @@
 
 - name: Install standard pip modules
   become: true
-  pip: executable='{{ py2_pip }}' name='{{ item }}' state=latest
-  with_items: '{{ py2_generic }}'
+  pip: executable='{{ py2_pip }}' name='{{ py2_generic }}' state=latest
   when: install_python2 and not exists_result.stat.exists
 
 - name: Install AWS pip modules
   become: true
-  pip: executable='{{ py2_pip }}' name='{{ item }}' state=latest
-  with_items: '{{ py2_aws_modules }}'
+  pip: executable='{{ py2_pip }}' name='{{ py2_aws_modules }}' state=latest
   when: py2_aws
 
 - name: Install Google-Cloud pip module

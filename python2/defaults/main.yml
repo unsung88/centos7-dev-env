@@ -1,7 +1,7 @@
 ---
 # defaults file for python2
 py2_short: '2.7'
-py2_ver : '{{ py2_short }}.15'
+py2_ver : '{{ py2_short }}.16'
 py2_src_dir: '{{ HOME }}/Python-{{ py2_ver }}'
 py2_bin_dir: /usr/local/bin/
 py2_pip: '{{ py2_bin_dir }}pip{{ py2_short }}'

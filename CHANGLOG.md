@@ -28,7 +28,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - slack to 3.3.8 (still beta)
 - changed all pip and yum with_items loops to new Ansible syntax to eliminate deprecation warnings
 
+## [1.2.1] - 2019-04-20
 
+### Added
+
+- Tilix, a new terminal option.
+- Updated tasks to continue on new/upgrade of applications.
+
+### Changed
+
+- Updated centos7-dev-env variables.
+- Updated centos7-dev-env tasks.
+- Updated Syntax.
+- Fixed README.md for persistgui.
+- Fixed issue with python-psycopg2 install.
 
 ## [1.2.0] - 2019-04-20
 

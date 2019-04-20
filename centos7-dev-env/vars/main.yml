@@ -7,7 +7,7 @@
   update_packages: true
   install_dev_tools: true
   install_mate: true
-  install_emacs: false
+  install_emacs: true
   install_docker: true
   install_terraform: true
   install_packer: true
@@ -23,12 +23,12 @@
   install_git: true
   install_minishift: true
   install_node_js: true
-  install_postgresql: false
-  install_pgadmin4: false
+  install_postgresql: true
+  install_pgadmin4: true
   install_postman: true
   install_vscode: true
-  install_atom: false
-  install_sublime_text: false
+  install_atom: true
+  install_sublime_text: true
   install_chrome: true
   install_firefox: true
   install_terminator: true
@@ -45,7 +45,7 @@
 
 # Enable/Disable configuration
   configure_git: true
-  configure_postgresql: false
+  configure_postgresql: true
 
 # Shutdown VM after provisioning
   shutdown: true

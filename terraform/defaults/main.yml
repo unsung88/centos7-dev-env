@@ -1,5 +1,5 @@
 ---
 # defaults file for terraform
-tf_version: "0.11.8"
+tf_version: "0.11.13"
 tf_file: /usr/local/bin/terraform
 tf_version_result: None

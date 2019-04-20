@@ -7,35 +7,28 @@
 
   - name: Install additional dev tools
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ dev_tools }}'
+    yum: name={{ dev_tools }} state=latest
 
   - name: Install DB Development Packages
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ db_dev_packages }}'
+    yum: name={{ db_dev_packages }} state=latest
 
   - name: Install Python Development Packages
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ py_dev_packages }}'
+    yum: name={{ py_dev_packages }} state=latest
 
   - name: Install Compression Development Packages
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ compression_dev_packages }}'
+    yum: name={{ compression_dev_packages }} state=latest
 
   - name: Install Graphics Development Packages
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ graphics_dev_packages }}'
+    yum: name={{ graphics_dev_packages }} state=latest
 
   - name: Install Security Development Packages
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ security_dev_packages }}'
+    yum: name={{ security_dev_packages }} state=latest
 
   - name: Install Misc Development Packages
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ misc_dev_packages }}'
+    yum: name={{ misc_dev_packages }} state=latest

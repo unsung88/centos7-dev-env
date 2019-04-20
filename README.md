@@ -127,7 +127,47 @@ The other roles will be updated to match this over time.
 3. run `vagrant provision`
 
 
-## Updates and TODO
+## Recent updates
+
+* updated python2 to 2.7.16
+* updated packer to 1.4.0
+* updated terraform to 0.11.13
+* updated git to 2.21.0
+* updated postgresql to 11.2
+* updated postgresql repo to new "latest" repo
+* set IP connections (127.0.0.1:5432) to "password" auth in pg_hba.conf template
+* updated pgadmin to 4.5
+* updated slack to 3.3.8 (still beta)
+* added ansible playbook
+* removed a old xen repo
+
+
+## Older updates
+
+* added default installed ver variable value to prevent a crash when no packages are installed for a given app
+* added a mkdir call in the Vagrantfile to ensure /vagrant exists
+* added configuration for git - sets parameters in the following sections
+	* [core]
+	* [color "branch"]
+	* [color "status"]
+	* [color]
+	* [github]
+	* [push]
+	* [diff]
+	* [user]
+	* [difftool]
+	* [merge]
+* installs python2-pip for system python module installation
+* added pip install of psycopg2 for Ansible postgres module
+* added configuration for postgreSQL - sets/creates the following
+	* postgresql.conf - sets listen to the public IP, sets max_connections to 300, scales mem and caching based on system RAM
+	* pg_hba.conf - adds entry for IPv4 authentication by password for the public IP of the VM with /24 (CIDR)
+	* creates role and grants superuser
+	* creates a database
+	* adds plperl and plythonu extensions to the database
+
+
+## TODO
 
 See CHANGELOG.md
 

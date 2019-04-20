@@ -144,8 +144,7 @@
 
   - name: Install Open VM Tools
     become: true
-    yum: name={{ item }} state=latest
-    with_items: '{{ open_vm_tools_packages }}'
+    yum: name={{ open_vm_tools_packages }} state=latest
     when: install_open_vm_tools
 
   - name: Install Slack
