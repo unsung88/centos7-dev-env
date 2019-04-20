@@ -9,14 +9,21 @@
     become: true
     file:
       path: /usr/local/bin/python3*
-      state: absent 
-    when: install_python3 and not exists_result.stat.exists  
+      state: absent
+    when: install_python3 and not exists_result.stat.exists
+
+  - name: Remove python3 lib file
+    become: true
+    file:
+      path: /usr/local//usr/local/lib/libpython3.so
+      state: absent
+    when: install_python3 and not exists_result.stat
 
   - name: Remove exiting python3 pip binaries
     become: true
     file:
       path: /usr/local/bin/pip3*
-      state: absent    
+      state: absent
     when: install_python3 and not exists_result.stat.exists
 
   - name: Install IUS Community repo

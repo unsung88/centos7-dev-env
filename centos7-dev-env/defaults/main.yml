@@ -1,2 +1,4 @@
 ---
 # defaults file for centos7-dev-env
+
+xen_repo: "centos-release-xen-410"
