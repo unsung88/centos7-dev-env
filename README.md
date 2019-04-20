@@ -36,7 +36,8 @@ Latest = current stable or current in repo
 * Azure python modules - Latest
 * postman - Latest
 * firefox - Latest package
-* terminator -Latest package
+* terminator - Latest package (deprecated)
+* Tilix - Latest package
 * gdb - Latest package
 * X11 and MATE Desktop - Latest packages
 * Perl 5.16.3
@@ -47,11 +48,11 @@ Latest = current stable or current in repo
 * node.js 8.11.3 (LTS)
 * Open VM Tools - Latest package
 
-For items with fixed versions, these are defined and can be changed for each Ansible role in the ./<role>/defaults/main.yml file.
+For items with fixed versions, these are defined and can be changed for each Ansible role in the ./\<role\>/defaults/main.yml file.
 
 ## Application Configuration
 
-Configuration variables are defined and can be changed for each Ansible role in the ./<role>/defaults/main.yml file.
+Configuration variables are defined and can be changed for each Ansible role in the ./&lt;role&gt;/defaults/main.yml file.
 To Enable/Disable configuration, set the configure_<app> boolean to true in centos7-dev-env/vars/main.yml
 Configuration options available for:
 
@@ -65,7 +66,7 @@ Ansible >=2.6 and Vagrant must be installed on the host system
 vagrant-hostmanager plugin (free)
 
 For VMware Fusion or Workstation
-VMware Fusion >= v8.0 (Tested with v10.1.2)
+VMware Fusion >= v8.0 (Tested with v10-11)
 vagrant-vmware-desktop plugin (Purchase at https://www.vagrantup.com/vmware/index.html)
 
 
