@@ -5,3 +5,8 @@
   yum:
     name: ansible
     state: latest
+
+- name: Install Molecule on Dev Env
+  become: true
+  pip:
+   name: molecule

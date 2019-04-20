@@ -23,7 +23,7 @@
   install_git: true
   install_minishift: true
   install_node_js: true
-  install_postgresql: false
+  install_postgresql: true
   install_pgadmin4: false
   install_postman: true
   install_vscode: true
