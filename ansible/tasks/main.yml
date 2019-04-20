@@ -1,0 +1,7 @@
+---
+# tasks file for ansible
+- name: Install Ansible on Dev Env
+  become: true
+  yum:
+    name: ansible
+    state: latest

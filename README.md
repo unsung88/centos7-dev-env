@@ -1,4 +1,5 @@
 # centos7-dev-env
+
 CentOS 7 development VM built via Vagrant for VMware Fusion/Desktop or Virtualbox
 Uses Ansible provisioner
 
@@ -8,10 +9,14 @@ Note: The VM's specs can be reduced in the Vagrantfile.  It will run reasonably 
 
 
 Branches
+
 * master - all-in-one environment
 
 ## Installation of Applications and Packages
+
 Latest = current stable or current in repo
+
+* ansible - Latest package
 * git 2.18.0
 * automake - Latest package
 * zsh - Latest package
@@ -45,14 +50,17 @@ Latest = current stable or current in repo
 For items with fixed versions, these are defined and can be changed for each Ansible role in the ./<role>/defaults/main.yml file.
 
 ## Application Configuration
+
 Configuration variables are defined and can be changed for each Ansible role in the ./<role>/defaults/main.yml file.
 To Enable/Disable configuration, set the configure_<app> boolean to true in centos7-dev-env/vars/main.yml
 Configuration options available for:
+
 * git
 * postgreSQL
 
 
 ## Requirements
+
 Ansible >=2.6 and Vagrant must be installed on the host system
 vagrant-hostmanager plugin (free)
 
@@ -63,36 +71,43 @@ vagrant-vmware-desktop plugin (Purchase at https://www.vagrantup.com/vmware/inde
 
 
 ## Usage
+
 1. Clone the repository and cd to the centos7-dev-env directory
 2. `vagrant plugin install vagrant-hostmanager`
 3. Open ./centos7-dev-env/vars/main.yml. set items you wish to install to "true".  Set those you do not wish to install to "false" and save.
    Set the appropriate VM Guest install to true and the other to false
 
 For VMware Fusion or Workstation
+
 1. `vagrant plugin install vagrant-vmware-desktop`
 2. `vagrant plugin license vagrant-vmware-desktop /path/to/license.lic`
 3. `vagrant up --provider=vmware_fusion`
 
 For VirtualBox
+
 1. `vagrant plugin install vagrant-vbguest`
 2. `vagrant up --provider=virtualbox --provision`
 If necessary
-3. `vagrant --provision` 
+3. `vagrant --provision`
 
 Then
 Go do something else for an hour or so
 
 
 ## Connecting
+
 for CLI-only
+
 1. `vagrant ssh`
 
 for GUI
+
 1. login at the VM's console in the VMware Fusion UI (user: vagrant, pass: vagrant)
-2. `sudo ~/startgui.sh` OR `sudo systemctl isolate graphical.target` 
+2. `sudo ~/startgui.sh` OR `sudo systemctl isolate graphical.target`
 
 To always boot into the GUI
-1. `sudo ~/persistsgui.sh` 
+
+1. `sudo ~/persistsgui.sh`
      OR
 2. `sudo systemctl set-default graphical.target`
 3. `sudo rm '/etc/systemd/system/default.target'`
@@ -100,10 +115,11 @@ To always boot into the GUI
 
 
 ## Updating the VM
+
 Not all roles support updating.  This is a work in progress!
 Most packages that install via yum will be updated when update_packages is set to true
 Some roles that do have support for updating are git, terraform, packer, and slack.
-The only roles that have proper version checking and enforcement for the RPM version are Slack and PostgreSQL.  
+The only roles that have proper version checking and enforcement for the RPM version are Slack and PostgreSQL.
 The other roles will be updated to match this over time.
 
 1. Add Ansible Roles or modify versions
@@ -112,9 +128,10 @@ The other roles will be updated to match this over time.
 
 
 ## Recent updates
+
 * added default installed ver variable value to prevent a crash when no packages are installed for a given app
 * added a mkdir call in the Vagrantfile to ensure /vagrant exists
-* added configuration for git - sets parameters in the following sections 
+* added configuration for git - sets parameters in the following sections
 	* [core]
 	* [color "branch"]
 	* [color "status"]
@@ -135,7 +152,8 @@ The other roles will be updated to match this over time.
 	* adds plperl and plythonu extensions to the database
 
 
-## Older updates 
+## Older updates
+
 * updated Slack role to properly get the version of only the installed package
 * updated postgresql role to have proper version checking and enforcement for the RPM
 * changed reboot after provisioning to shutdown
@@ -148,14 +166,11 @@ The other roles will be updated to match this over time.
 * Enabled shared folder from host . to VM /home/vagrant/sync - this is also a drive on the MATE Desktop (changed in Vagrantfile)
 * Added open-vm-tools-desktop package, which seems to fix the copy/paste issue in VMware
 
-
 ## TODO
-* Update roles for proper RPM version checking and enforcement
-* Add configuration for other apps such as NGINX
-* move the remote_tmp directory so it is available when switcing to other users such as postgres
 
+See CHANGELOG.md
 
 ## Known Issues
+
 * Virtualbox provider will sometimes not begin provisioning after VM creation
   When this happens, it is necessary to run `vagrant --provision`
-* Oh-My-Zsh will throw an error but this is expected.  The install completes. The shell can be changed by the user if desired.

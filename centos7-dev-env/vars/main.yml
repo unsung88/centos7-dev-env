@@ -19,6 +19,7 @@
   py3_aws: true
   py3_gcp: true
   py3_azure: true
+  install_ansible: true
   install_git: true
   install_minishift: true
   install_node_js: true
