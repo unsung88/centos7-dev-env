@@ -18,9 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Quali shellfoundry python module
+- Added Molecule
 
 ### Changed
 
+- continue playbook installs where applicable.
 - python2 to 2.7.16
 - packer to 1.4.0
 - terraform to 0.11.13

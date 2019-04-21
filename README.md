@@ -17,12 +17,12 @@ Branches
 Latest = current stable or current in repo
 
 * ansible - Latest package
+* molecule - Latest package
 * git 2.21.0
 * automake - Latest package
 * zsh - Latest package
 * gcc/g++ - Latest packages
 * docker - Latest CE package
-* ansible - Latest package
 * terraform 0.11.13
 * packer 1.4.0
 * postgreSQL 11.2
