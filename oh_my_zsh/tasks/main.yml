@@ -20,6 +20,7 @@
   when: not oh_my_zsh_exists.stat.exists
 
 - name: Install Oh-My-zsh
+  become: true
   shell: 'export PATH=/usr/local/bin/:$PATH && {{ HOME }}/install.sh'
   args:
     creates: "{{ HOME }}/.oh-my-zsh"
